@@ -2,11 +2,13 @@
 #include "ValuesAndTypes.hpp"
 
 sf::RenderWindow *Game::window = nullptr;
-int Game::crystals = NONE;
+int Game::crystals = 0;
+sf::Font Game::font;
 
 void Game::tick(){
-    // interface.tick();
     gameElements.tick();
+    interface.update();
+    interface.draw();
     // clock.tick()
 }
 
@@ -21,4 +23,5 @@ Game::Game(sf::RenderWindow *const window) : input{ gameElements.field,
                                                   },
                                              interface { gameElements.field } {
     this->window = window;
+    font.loadFromFile("resources/CascadiaCode.ttf");
 }

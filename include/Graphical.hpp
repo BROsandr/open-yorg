@@ -18,7 +18,6 @@ public:
 protected:
     sf::Texture backgroundTexture;
     sf::Text text;
-    sf::Font font;
     sf::RenderTexture renderTexture;
     
     virtual void setColor(sf::Color color = BACKGROUND);

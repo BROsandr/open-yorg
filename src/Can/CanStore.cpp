@@ -7,7 +7,7 @@
 #include <string>
 
 CanStore::CanStore(const FieldCoord &fieldCoord, int connectionRadius): Building(fieldCoord, connectionRadius){
-	storageText.setFont(font);
+	storageText.setFont(Game::font);
 	storageText.setCharacterSize(15);
     storageText.setPosition(getPosition() - sf::Vector2f{10, 10});
     storageText.setFillColor(sf::Color::Black);

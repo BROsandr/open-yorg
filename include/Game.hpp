@@ -15,6 +15,7 @@ public:
     Interface interface;
     Clock clock;
     static int crystals;
+    static sf::Font font;
 
     Game(sf::RenderWindow *const renderWindow);
     void tick();

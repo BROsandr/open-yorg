@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/Graphics/Text.hpp"
 #include "ValuesAndTypes.hpp"
 
 class Field;
@@ -9,10 +10,11 @@ public:
     FieldCoord selectedCell;
 
     Interface(Field &field);
-    void tick();
     void update();
+    void draw();
     void selectCell(const FieldCoord &selection);
 
 private:
     Field &field;
+    sf::Text crystalsText;
 };

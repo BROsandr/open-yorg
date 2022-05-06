@@ -2,10 +2,10 @@
 
 #include "Graphical.hpp"
 #include "ValuesAndTypes.hpp"
+#include "Game.hpp"
 
 Graphical::Graphical() {
-    font.loadFromFile("resources/CascadiaCode.ttf");
-	text.setFont(font);
+	text.setFont(Game::font);
 	text.setCharacterSize(CELL_WIDTH);
     setColor();
 }
