@@ -24,7 +24,11 @@ public:
 private:
 	// state pattern
     InputState *state = nullptr;
+    Interface &interface;
+    double zoomFactor = NONE;
 
+    void processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll);
+    void zoomView(const double delta);
     friend class InputStateNormal;
     friend class InputStateFutureRoad;
 };

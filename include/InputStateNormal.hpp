@@ -19,10 +19,8 @@ private:
     const sf::Vector2f up{0, -1};
     const sf::Vector2f down{0, 1};
     sf::Vector2i middleButtonPrevPos{NONE, NONE};
-    double zoomFactor = NONE;
 
     bool isValidBuildingPosition(const FieldCoord &position);
-    void processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll);
     void processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton);
     InputState* processKeys(const sf::Event::KeyEvent &key) override;
     void processMouseLeftClick(const sf::Vector2i &clickPosition);
@@ -32,5 +30,4 @@ private:
     InputState* place(const sf::Keyboard::Key &key);
     void moveView(const sf::Vector2f delta);
     void processMiddleButtonPressed();
-    void zoomView(const double delta);
 };

@@ -35,17 +35,6 @@ InputState* InputStateNormal::process(const sf::Event &event){
             t.detach();
         }
 
-    if (event.type == sf::Event::Resized) {
-        // update the view to the new size of the window
-        sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-        sf::View windowSizeView{ visibleArea };
-        interface.windowSizeView = windowSizeView;
-        windowSizeView.zoom(zoomFactor);
-        Game::window->setView(windowSizeView);
-    }
-    if (event.type == sf::Event::EventType::MouseWheelScrolled)
-        processMouseWheelScroll(event.mouseWheelScroll);
-
     if (event.type == sf::Event::EventType::KeyPressed)
         return processKeys(event.key);
 
@@ -77,17 +66,6 @@ void InputStateNormal::processMiddleButtonPressed(){
         }
         else
             middleButtonPrevPos = sf::Mouse::getPosition();
-}
-
-void InputStateNormal::processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll){
-    zoomView(mouseWheelScroll.delta);
-}
-
-void InputStateNormal::zoomView(const double delta){
-    zoomFactor = 1 - delta * ZOOM_SPEED;
-    sf::View view = Game::window->getView();
-    view.zoom(zoomFactor);
-    Game::window->setView(view);
 }
 
 InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
