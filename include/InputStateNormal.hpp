@@ -2,6 +2,8 @@
 
 #include "Field/FieldCell.hpp"
 #include "InputState.hpp"
+#include "SFML/System/Vector2.hpp"
+#include "ValuesAndTypes.hpp"
 
 class Building;
 class FieldCell;
@@ -12,6 +14,12 @@ public:
 	InputState* process(const sf::Event &event) override;
 
 private:
+    const sf::Vector2f left {-1, 0};
+    const sf::Vector2f right{1, 0};
+    const sf::Vector2f up{0, -1};
+    const sf::Vector2f down{0, 1};
+    sf::Vector2i middleButtonPrevPos{NONE, NONE};
+
     bool isValidBuildingPosition(const FieldCoord &position);
     void processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll);
     void processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton);
@@ -21,4 +29,6 @@ private:
     void upgrade(Building &building);
     bool canAfford(Building &building);
     InputState* place(const sf::Keyboard::Key &key);
+    void moveView(const sf::Vector2f delta);
+    void processMiddleButtonPressed();
 };

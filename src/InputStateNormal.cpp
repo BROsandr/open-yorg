@@ -17,15 +17,24 @@
 #include "Enemy/CasualEnemy.hpp"
 #include "Building/Mine.hpp"
 #include "Building/Cannon.hpp"
+#include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include "Resource/Iron.hpp"
 #include "Building/IronMine.hpp"
 #include "Building/Wall.hpp"
+#include "SFML/Window/Mouse.hpp"
 #include "ValuesAndTypes.hpp"
+#include <thread>
 
 InputStateNormal::InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_): InputState{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}{};
 
 InputState* InputStateNormal::process(const sf::Event &event){
+    if(event.type == sf::Event::EventType::MouseButtonPressed)
+        if(event.key.code == sf::Mouse::Middle){
+            std::thread t{&InputStateNormal::processMiddleButtonPressed, this};
+            t.detach();
+        }
+
     if (event.type == sf::Event::EventType::MouseWheelScrolled)
         processMouseWheelScroll(event.mouseWheelScroll);
 
@@ -45,6 +54,21 @@ bool InputStateNormal::isValidBuildingPosition(const FieldCoord &position){
 void InputStateNormal::processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton){
     if (mouseButton.button == sf::Mouse::Button::Left)
         processMouseLeftClick({mouseButton.x, mouseButton.y});
+}
+
+void InputStateNormal::processMiddleButtonPressed(){
+    middleButtonPrevPos = sf::Vector2i{NONE, NONE};
+    while(sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+        if(middleButtonPrevPos != sf::Vector2i{NONE, NONE}){
+            sf::Vector2i tempPosition = sf::Mouse::getPosition();
+            sf::Vector2i delta = tempPosition - middleButtonPrevPos;
+            if(delta.x || delta.y){
+                moveView(static_cast<sf::Vector2f>(delta) / 50.0f);
+                middleButtonPrevPos = tempPosition;
+            }
+        }
+        else
+            middleButtonPrevPos = sf::Mouse::getPosition();
 }
 
 void InputStateNormal::processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll){
@@ -132,22 +156,25 @@ void InputStateNormal::upgrade(Building &building){
     building.upgrade();
 }
 
+void InputStateNormal::moveView(const sf::Vector2f delta){
+    sf::View view = Game::window->getView();
+    view.move(VIEW_MOVE_SPEED * delta.x, VIEW_MOVE_SPEED * delta.y);
+    Game::window->setView(view);
+}
 
 InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
-    sf::View view = Game::window->getView();
-
     switch(key.code){
     case sf::Keyboard::Key::Left:
-        view.move(-VIEW_MOVE_SPEED, 0);
+        moveView(left);
         break;
     case sf::Keyboard::Key::Right:
-        view.move(VIEW_MOVE_SPEED, 0);
+        moveView(right);
         break;
     case sf::Keyboard::Key::Down:
-        view.move(0, VIEW_MOVE_SPEED);
+        moveView(down);
         break;
     case sf::Keyboard::Key::Up:
-        view.move(0, -VIEW_MOVE_SPEED);
+        moveView(up);
         break;
     case sf::Keyboard::Key::F1:
         if(FieldCell &fieldCell {field.get( interface.selectedCell)}; fieldCell.fieldCellType == FieldCell::FieldCellType::building)
@@ -174,8 +201,6 @@ InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     default:
         std::cerr << std::endl << "detected unrecognized Key event" << std::endl;
     }
-
-    Game::window->setView(view);
     
     return nullptr;
 }
