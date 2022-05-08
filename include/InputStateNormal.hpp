@@ -19,6 +19,7 @@ private:
     const sf::Vector2f up{0, -1};
     const sf::Vector2f down{0, 1};
     sf::Vector2i middleButtonPrevPos{NONE, NONE};
+    double zoomFactor = NONE;
 
     bool isValidBuildingPosition(const FieldCoord &position);
     void processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll);

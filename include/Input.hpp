@@ -24,7 +24,6 @@ public:
 private:
 	// state pattern
     InputState *state = nullptr;
-    Interface &interface;
 
     friend class InputStateNormal;
     friend class InputStateFutureRoad;

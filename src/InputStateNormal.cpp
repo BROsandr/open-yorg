@@ -35,6 +35,14 @@ InputState* InputStateNormal::process(const sf::Event &event){
             t.detach();
         }
 
+    if (event.type == sf::Event::Resized) {
+        // update the view to the new size of the window
+        sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+        sf::View windowSizeView{ visibleArea };
+        interface.windowSizeView = windowSizeView;
+        windowSizeView.zoom(zoomFactor);
+        Game::window->setView(windowSizeView);
+    }
     if (event.type == sf::Event::EventType::MouseWheelScrolled)
         processMouseWheelScroll(event.mouseWheelScroll);
 
@@ -76,9 +84,9 @@ void InputStateNormal::processMouseWheelScroll(const sf::Event::MouseWheelScroll
 }
 
 void InputStateNormal::zoomView(const double delta){
-    double zoom = - delta * ZOOM_SPEED;
+    zoomFactor = 1 - delta * ZOOM_SPEED;
     sf::View view = Game::window->getView();
-    view.zoom(1 + zoom);
+    view.zoom(zoomFactor);
     Game::window->setView(view);
 }
 
