@@ -12,7 +12,9 @@ public:
 
 		none 
 	} buildingType = BuildingType::none;
-    Building(const FieldCoord &fieldCoord, int connectionRadius);
+	int cost = NONE;
+
+    Building(const FieldCoord &fieldCoord, int connectionRadius, int cost);
 	void update() override;
 	virtual void upgrade();
 

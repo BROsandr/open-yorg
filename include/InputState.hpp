@@ -15,12 +15,11 @@ class ResourceBalls;
 
 class InputState{
 public:
-	InputState(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, Input &input);
-	virtual void process(const sf::Event &event) = 0;
+	InputState(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_);
+	virtual InputState* process(const sf::Event &event) = 0;
 private:
-    virtual void processKeys(const sf::Event::KeyEvent &key) = 0;
+    virtual InputState* processKeys(const sf::Event::KeyEvent &key) = 0;
 protected:
-	Input &input;
     Field &field;
     Interface &interface;
     Enemies &enemies;

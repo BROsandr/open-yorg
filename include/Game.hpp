@@ -14,7 +14,6 @@ public:
     static sf::RenderWindow *window;
     Interface interface;
     Clock clock;
-    static int crystals;
     static sf::Font font;
 
     Game(sf::RenderWindow *const renderWindow);

@@ -2,7 +2,6 @@
 #include "ValuesAndTypes.hpp"
 
 sf::RenderWindow *Game::window = nullptr;
-int Game::crystals = 0;
 sf::Font Game::font;
 
 void Game::tick(){

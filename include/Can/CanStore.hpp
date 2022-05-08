@@ -5,7 +5,7 @@
 
 class CanStore: public Building{
 public:
-    CanStore(const FieldCoord &fieldCoord, int connectionRadius);
+    CanStore(const FieldCoord &fieldCoord, int connectionRadius, int cost);
     double storage = 0;
     
     void draw() override;

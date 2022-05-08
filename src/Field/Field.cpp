@@ -1,7 +1,10 @@
 #include <time.h>
 
+#include "Building/Building.hpp"
+#include "Can/CanStore.hpp"
 #include "Field/Field.hpp"
 #include "Field/EmptyFieldCell.hpp"
+#include "ValuesAndTypes.hpp"
 
 Field::Field() : pathSearchField{*this}, road(*this) {
     srand(time(0));
@@ -80,4 +83,18 @@ Field::~Field(){
 
 bool Field::isFutureCell(FieldCoord &fieldCoord){
     return road.isFutureCell(fieldCoord);
+}
+
+int Field::getCrystals(){
+    if(basePosition != NONE_FIELD_CELL)
+        return static_cast<CanStore&>( get(basePosition) ).storage;
+    else
+        return 0;
+}
+void Field::incrementCrystals(){
+    static_cast<CanStore&>( get(basePosition) ).storage++;
+}
+
+void Field::decreaseCrystals(int amount){
+    static_cast<CanStore&>( get(basePosition) ).storage -= amount;
 }

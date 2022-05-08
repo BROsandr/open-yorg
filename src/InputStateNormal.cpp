@@ -1,6 +1,10 @@
 #include <SFML/Window/Event.hpp>
+#include <cstddef>
+#include <functional>
+#include <utility>
 
 #include "Building/CrystalMine.hpp"
+#include "Field/EmptyFieldCell.hpp"
 #include "InputStateFutureRoad.hpp"
 #include "InputStateNormal.hpp"
 #include "Building/Transporter.hpp"
@@ -17,18 +21,21 @@
 #include "Resource/Iron.hpp"
 #include "Building/IronMine.hpp"
 #include "Building/Wall.hpp"
+#include "ValuesAndTypes.hpp"
 
-InputStateNormal::InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, Input &input): InputState{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_, input}{};
+InputStateNormal::InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_): InputState{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}{};
 
-void InputStateNormal::process(const sf::Event &event){
+InputState* InputStateNormal::process(const sf::Event &event){
     if (event.type == sf::Event::EventType::MouseWheelScrolled)
         processMouseWheelScroll(event.mouseWheelScroll);
 
     if (event.type == sf::Event::EventType::KeyPressed)
-        processKeys(event.key);
+        return processKeys(event.key);
 
     if (event.type == sf::Event::EventType::MouseButtonReleased)
         processMouseClick(event.mouseButton);
+    
+    return nullptr;
 }
 
 bool InputStateNormal::isValidBuildingPosition(const FieldCoord &position){
@@ -47,7 +54,7 @@ void InputStateNormal::processMouseWheelScroll(const sf::Event::MouseWheelScroll
     Game::window->setView(view);
 }
 
-void InputStateNormal::build(const sf::Keyboard::Key &key){
+InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
     const FieldCoord &position = interface.selectedCell;
 
     if (!isValidBuildingPosition(position)){
@@ -56,39 +63,69 @@ void InputStateNormal::build(const sf::Keyboard::Key &key){
     }
     if (interface.selectedCell != NONE_FIELD_CELL){
 		FieldCell *fieldCell = nullptr;
-        switch (key) {
-        case sf::Keyboard::B:
-            fieldCell = field.set(new Base{ field, interface.selectedCell });
-            break;
+        int buildingCost = 0;
+        switch(key){
         case sf::Keyboard::R:
             fieldCell = field.set(new Crystal{ interface.selectedCell });
-            break;
-        case sf::Keyboard::E:
-            new CasualEnemy{ interface.selectedCell, enemies, pathSearchField, bullets, field, damageCircles};
-            break;
-        case sf::Keyboard::M:
-            fieldCell = field.set(new CrystalMine{ field, interface.selectedCell, resourceBalls, road });
-            break;
-        case sf::Keyboard::C:
-            fieldCell = field.set(new Cannon{ interface.selectedCell, enemies, bullets, damageCircles });
-            break;
-        case sf::Keyboard::T:
-            fieldCell = field.set(new Transporter{ interface.selectedCell });
             break;
         case sf::Keyboard::I:
             fieldCell = field.set(new Iron{interface.selectedCell});
             break;
-        case sf::Keyboard::O:
-            fieldCell = field.set(new IronMine{ field, interface.selectedCell, resourceBalls, road });
+        case sf::Keyboard::E:
+            new CasualEnemy{ interface.selectedCell, enemies, pathSearchField, bullets, field, damageCircles};
             break;
-        case sf::Keyboard::W:
-            fieldCell = field.set(new Wall{ interface.selectedCell });
-            break;
+        default:
+            std::tie(fieldCell, buildingCost) = build(key);
         }
-		road.showFutureRoad(fieldCell);
-		if(fieldCell)
-			input.state = new InputStateFutureRoad{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, input};
-	}
+		if(fieldCell){
+			return new InputStateFutureRoad{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, buildingCost};
+        }
+        else 
+            return nullptr;
+    }
+}
+
+
+std::pair<FieldCell*, int> InputStateNormal::build(const sf::Keyboard::Key &key){
+    FieldCell *fieldCell = nullptr;
+    switch (key) {
+    case sf::Keyboard::B:
+        fieldCell = field.set(new Base{ field, interface.selectedCell });
+        break;
+    case sf::Keyboard::M:
+        fieldCell = field.set(new CrystalMine{ field, interface.selectedCell, resourceBalls, road });
+        break;
+    case sf::Keyboard::C:
+        fieldCell = field.set(new Cannon{ interface.selectedCell, enemies, bullets, damageCircles });
+        break;
+    case sf::Keyboard::T:
+        fieldCell = field.set(new Transporter{ interface.selectedCell });
+        break;
+    case sf::Keyboard::O:
+        fieldCell = field.set(new IronMine{ field, interface.selectedCell, resourceBalls, road });
+        break;
+    case sf::Keyboard::W:
+        fieldCell = field.set(new Wall{ interface.selectedCell });
+        break;
+    }
+    if(fieldCell){
+        Building &building {static_cast<Building&>(*fieldCell)};
+        int buildingCost = building.cost;
+            if(canAfford(building))
+                return std::make_pair(fieldCell, buildingCost);
+            else{
+                std::cerr << "Cannot afford" << std::endl;
+                field.set(new EmptyFieldCell{fieldCell->getCoord()});
+            }
+    }
+    return std::make_pair(nullptr, 0);
+}
+
+bool InputStateNormal::canAfford(Building &building){
+    if(building.cost > field.getCrystals())
+        return false;
+    else
+        return true;
 }
 
 void InputStateNormal::upgrade(Building &building){
@@ -96,7 +133,7 @@ void InputStateNormal::upgrade(Building &building){
 }
 
 
-void InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
+InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     sf::View view = Game::window->getView();
 
     switch(key.code){
@@ -117,6 +154,11 @@ void InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
             upgrade(static_cast<Building&>(fieldCell));
         else
             std::cerr << "Cannot be upgraded" << std::endl;
+        break;
+    case sf::Keyboard::Key::F9:
+        if(field.basePosition != NONE_FIELD_CELL)
+            field.incrementCrystals();
+        break;
     case sf::Keyboard::Key::B:
     //fall-through
     case sf::Keyboard::Key::R:
@@ -127,13 +169,15 @@ void InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     case sf::Keyboard::I:
     case sf::Keyboard::O:
     case sf::Keyboard::W:
-        build(key.code);
+        return place(key.code);
         break;
     default:
         std::cerr << std::endl << "detected unrecognized Key event" << std::endl;
     }
 
     Game::window->setView(view);
+    
+    return nullptr;
 }
 
 void InputStateNormal::processMouseLeftClick(const sf::Vector2i &clickPosition){

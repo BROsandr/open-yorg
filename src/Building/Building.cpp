@@ -1,7 +1,7 @@
 #include "Building/Building.hpp"
 #include "SFML/Graphics/Color.hpp"
 
-Building::Building(const FieldCoord &fieldCoord, int connectionRadius): FieldCell{fieldCoord, connectionRadius}{
+Building::Building(const FieldCoord &fieldCoord, int connectionRadius, int cost_): FieldCell{fieldCoord, connectionRadius}, cost{cost_}{
 	fieldCellType = FieldCellType::building;
 	setHp(12);
 }

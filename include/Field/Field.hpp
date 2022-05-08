@@ -23,6 +23,9 @@ public:
     FieldCell &get(const FieldCoord &fieldCoord);
     ~Field();
     bool isFutureCell(FieldCoord &fieldCoord);
+    int getCrystals();
+    void incrementCrystals();
+    void decreaseCrystals(int amount);
 
 private:
     std::vector< std::vector<FieldCell*> > field;

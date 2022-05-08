@@ -6,7 +6,7 @@
 #include "ValuesAndTypes.hpp"
 #include <string>
 
-CanStore::CanStore(const FieldCoord &fieldCoord, int connectionRadius): Building(fieldCoord, connectionRadius){
+CanStore::CanStore(const FieldCoord &fieldCoord, int connectionRadius, int cost): Building(fieldCoord, connectionRadius, cost){
 	storageText.setFont(Game::font);
 	storageText.setCharacterSize(15);
     storageText.setPosition(getPosition() - sf::Vector2f{10, 10});

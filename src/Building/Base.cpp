@@ -7,7 +7,7 @@
 #include "Game.hpp"
 #include "ValuesAndTypes.hpp"
 
-Base::Base(Field &field, const FieldCoord &fieldCoord): CanStore{fieldCoord, 3}{
+Base::Base(Field &field, const FieldCoord &fieldCoord): CanStore{fieldCoord, 3, 0}{
     compatibleResource = ResourceType::crystal;
     text.setString("B");
     renderTexture.draw(text);
@@ -26,5 +26,4 @@ void Base::draw(){
 
 void Base::update(){
     CanStore::update();
-    Game::crystals = storage;
 }

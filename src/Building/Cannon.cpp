@@ -5,7 +5,7 @@
 #include "Enemy/Enemy.hpp"
 #include "ValuesAndTypes.hpp"
 
-Cannon::Cannon(FieldCoord &fieldCoord_, Enemies &enemies_, Bullets &bullets, DamageCircles &damageCircles) : enemies{ enemies_ }, CanStore{ fieldCoord_, 3 }, CanShoot{ NONE_VECTOR2F, NONE, NONE }, bullets{ bullets }, damageCircles{damageCircles} {
+Cannon::Cannon(FieldCoord &fieldCoord_, Enemies &enemies_, Bullets &bullets, DamageCircles &damageCircles) : enemies{ enemies_ }, CanStore{ fieldCoord_, 3, 1 }, CanShoot{ NONE_VECTOR2F, NONE, NONE }, bullets{ bullets }, damageCircles{damageCircles} {
     setDamageRadius(3);
     text.setString("CA");
     renderTexture.draw(text);

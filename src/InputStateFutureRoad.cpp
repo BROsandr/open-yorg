@@ -3,23 +3,26 @@
 #include "InputState.hpp"
 #include "Input.hpp"
 #include "InputStateNormal.hpp"
+#include "Field/Field.hpp"
 
-InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, Input &input): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_, input){}
+InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost){}
 
-void InputStateFutureRoad::process(const sf::Event &event){
+InputState* InputStateFutureRoad::process(const sf::Event &event){
     if (event.type == sf::Event::EventType::KeyPressed)
-        processKeys(event.key);
+        return processKeys(event.key);
+    
+    return nullptr;
 }
 
-void InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
+InputState* InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
     switch(key.code){
     case sf::Keyboard::Key::Enter:
         road.showRealRoad(false);
-        input.state = new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, input};
+        field.decreaseCrystals(buildingCost);
         break;
     case sf::Keyboard::Key::Escape:
         road.showRealRoad(true);
-        input.state = new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, input};
         break;
 	}
+    return new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road};
 }

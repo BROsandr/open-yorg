@@ -14,7 +14,7 @@ Interface::Interface(Field &field) : field{ field } {
 }
 
 void Interface::update(){
-    crystalsText.setString(std::to_string( Game::crystals ));
+    crystalsText.setString(std::to_string(field.getCrystals()));
 }
 
 void Interface::draw(){
