@@ -72,7 +72,11 @@ void InputStateNormal::processMiddleButtonPressed(){
 }
 
 void InputStateNormal::processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll){
-    double zoom = - mouseWheelScroll.delta * ZOOM_SPEED;
+    zoomView(mouseWheelScroll.delta);
+}
+
+void InputStateNormal::zoomView(const double delta){
+    double zoom = - delta * ZOOM_SPEED;
     sf::View view = Game::window->getView();
     view.zoom(1 + zoom);
     Game::window->setView(view);

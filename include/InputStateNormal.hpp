@@ -31,4 +31,5 @@ private:
     InputState* place(const sf::Keyboard::Key &key);
     void moveView(const sf::Vector2f delta);
     void processMiddleButtonPressed();
+    void zoomView(const double delta);
 };
