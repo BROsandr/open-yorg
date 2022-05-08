@@ -10,7 +10,6 @@ Interface::Interface(Field &field) : field{ field } {
 	crystalsText.setFont(Game::font);
 	crystalsText.setCharacterSize(60);
     crystalsText.setFillColor(sf::Color{0, 0, 77});
-    crystalsText.setPosition({CELL_LENGTH * FIELD_LENGTH, 50.0});
 }
 
 void Interface::update(){
@@ -18,8 +17,9 @@ void Interface::update(){
 }
 
 void Interface::draw(){
+    crystalsText.setPosition({Game::window->getSize().x / 2.0, 50.0});
     sf::View savedView { Game::window->getView()};
-    Game::window->setView(Game::window->getDefaultView());
+    Game::window->setView(windowSizeView);
     Game::window->draw(crystalsText);
     Game::window->setView(savedView);
 }
