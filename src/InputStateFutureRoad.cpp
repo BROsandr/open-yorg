@@ -7,13 +7,6 @@
 
 InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost){}
 
-InputState* InputStateFutureRoad::process(const sf::Event &event){
-    if (event.type == sf::Event::EventType::KeyPressed)
-        return processKeys(event.key);
-    
-    return nullptr;
-}
-
 InputState* InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
     switch(key.code){
     case sf::Keyboard::Key::Enter:

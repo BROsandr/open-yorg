@@ -24,49 +24,14 @@
 #include "Building/Wall.hpp"
 #include "SFML/Window/Mouse.hpp"
 #include "ValuesAndTypes.hpp"
-#include <thread>
 
 InputStateNormal::InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_): InputState{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}{};
-
-InputState* InputStateNormal::process(const sf::Event &event){
-    if(event.type == sf::Event::EventType::MouseButtonPressed)
-        if(event.key.code == sf::Mouse::Middle){
-            std::thread t{&InputStateNormal::processMiddleButtonPressed, this};
-            t.detach();
-        }
-
-    if (event.type == sf::Event::EventType::KeyPressed)
-        return processKeys(event.key);
-
-    if (event.type == sf::Event::EventType::MouseButtonReleased)
-        processMouseClick(event.mouseButton);
-    
-    return nullptr;
-}
 
 bool InputStateNormal::isValidBuildingPosition(const FieldCoord &position){
     return field.get(position).fieldCellType == FieldCell::FieldCellType::empty;
 }
 
-void InputStateNormal::processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton){
-    if (mouseButton.button == sf::Mouse::Button::Left)
-        processMouseLeftClick({mouseButton.x, mouseButton.y});
-}
 
-void InputStateNormal::processMiddleButtonPressed(){
-    middleButtonPrevPos = sf::Vector2i{NONE, NONE};
-    while(sf::Mouse::isButtonPressed(sf::Mouse::Middle))
-        if(middleButtonPrevPos != sf::Vector2i{NONE, NONE}){
-            sf::Vector2i tempPosition = sf::Mouse::getPosition();
-            sf::Vector2i delta = tempPosition - middleButtonPrevPos;
-            if(delta.x || delta.y){
-                moveView(static_cast<sf::Vector2f>(delta) / 50.0f);
-                middleButtonPrevPos = tempPosition;
-            }
-        }
-        else
-            middleButtonPrevPos = sf::Mouse::getPosition();
-}
 
 InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
     const FieldCoord &position = interface.selectedCell;
@@ -146,26 +111,8 @@ void InputStateNormal::upgrade(Building &building){
     building.upgrade();
 }
 
-void InputStateNormal::moveView(const sf::Vector2f delta){
-    sf::View view = Game::window->getView();
-    view.move(VIEW_MOVE_SPEED * delta.x, VIEW_MOVE_SPEED * delta.y);
-    Game::window->setView(view);
-}
-
 InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     switch(key.code){
-    case sf::Keyboard::Key::Left:
-        moveView(left);
-        break;
-    case sf::Keyboard::Key::Right:
-        moveView(right);
-        break;
-    case sf::Keyboard::Key::Down:
-        moveView(down);
-        break;
-    case sf::Keyboard::Key::Up:
-        moveView(up);
-        break;
     case sf::Keyboard::Key::F1:
         if(FieldCell &fieldCell {field.get( interface.selectedCell)}; fieldCell.fieldCellType == FieldCell::FieldCellType::building)
             upgrade(static_cast<Building&>(fieldCell));
@@ -193,15 +140,4 @@ InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     }
     
     return nullptr;
-}
-
-void InputStateNormal::processMouseLeftClick(const sf::Vector2i &clickPosition){
-    sf::Vector2f floatCoord = Game::window->mapPixelToCoords(clickPosition);
-    FieldCoord fieldCell = Algorithms::vector2fToFieldCoord(floatCoord);
-    std::cerr << std::endl << fieldCell.x << ' ' << fieldCell.y << ' ';
-
-    if( (fieldCell.x < FIELD_LENGTH && floatCoord.x >= 0) && (fieldCell.y < FIELD_WIDTH && floatCoord.y >= 0) )
-        interface.selectCell(fieldCell); 
-    else
-        std::cerr << "out of field bounds" << std::endl;
 }
