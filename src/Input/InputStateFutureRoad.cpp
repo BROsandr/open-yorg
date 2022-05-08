@@ -1,8 +1,8 @@
-#include "InputStateFutureRoad.hpp"
+#include "Input/InputStateFutureRoad.hpp"
 #include "Field/Road.hpp"
-#include "InputState.hpp"
-#include "Input.hpp"
-#include "InputStateNormal.hpp"
+#include "Input/InputState.hpp"
+#include "Input/Input.hpp"
+#include "Input/InputStateNormal.hpp"
 #include "Field/Field.hpp"
 
 InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost){}

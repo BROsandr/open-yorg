@@ -5,11 +5,10 @@
 
 #include "Building/CrystalMine.hpp"
 #include "Field/EmptyFieldCell.hpp"
-#include "InputStateFutureRoad.hpp"
-#include "InputStateNormal.hpp"
+#include "Input/InputStateFutureRoad.hpp"
+#include "Input/InputStateNormal.hpp"
 #include "Building/Transporter.hpp"
 #include "Field/FieldCell.hpp"
-#include "Input.hpp"
 #include "Game.hpp"
 #include "Algorithms.hpp"
 #include "Building/Base.hpp"
@@ -22,7 +21,6 @@
 #include "Resource/Iron.hpp"
 #include "Building/IronMine.hpp"
 #include "Building/Wall.hpp"
-#include "SFML/Window/Mouse.hpp"
 #include "ValuesAndTypes.hpp"
 
 InputStateNormal::InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_): InputState{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}{};

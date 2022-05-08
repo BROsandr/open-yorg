@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "Input.hpp"
+#include "Input/Input.hpp"
 #include "GameElements.hpp"
 #include "Interface.hpp"
 #include "Clock.hpp"

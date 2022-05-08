@@ -1,5 +1,5 @@
-#include "Input.hpp"
-#include "InputStateNormal.hpp"
+#include "Input/Input.hpp"
+#include "Input/InputStateNormal.hpp"
 #include "Game.hpp"
 #include <thread>
 #include "Algorithms.hpp"
