@@ -20,7 +20,8 @@ public:
     void update();
     void draw();
     FieldCell* set(FieldCell *const fieldCell);
-    FieldCell &get(const FieldCoord &fieldCoord);
+    FieldCell& get(const FieldCoord &fieldCoord);
+    FieldCell& relocate(FieldCell &fieldCell, const FieldCoord newCoord);
     ~Field();
     bool isFutureCell(FieldCoord &fieldCoord);
     int getCrystals();

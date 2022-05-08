@@ -9,7 +9,6 @@
 CanStore::CanStore(const FieldCoord &fieldCoord, int connectionRadius, int cost): Building(fieldCoord, connectionRadius, cost){
 	storageText.setFont(Game::font);
 	storageText.setCharacterSize(15);
-    storageText.setPosition(getPosition() - sf::Vector2f{10, 10});
     storageText.setFillColor(sf::Color::Black);
 }
 
@@ -21,6 +20,7 @@ void CanStore::draw(){
 
 void CanStore::update(){
     Building::update();
+    storageText.setPosition(getPosition() - sf::Vector2f{10, 10});
     storageText.setString(std::to_string(storage));
 }
 

@@ -4,6 +4,7 @@
 #include "Can/CanStore.hpp"
 #include "Field/Field.hpp"
 #include "Field/EmptyFieldCell.hpp"
+#include "Field/FieldCell.hpp"
 #include "ValuesAndTypes.hpp"
 
 Field::Field() : pathSearchField{*this}, road(*this) {
@@ -97,4 +98,15 @@ void Field::incrementCrystals(){
 
 void Field::decreaseCrystals(int amount){
     static_cast<CanStore&>( get(basePosition) ).storage -= amount;
+}
+
+FieldCell& Field::relocate(FieldCell &fieldCell, const FieldCoord newCoord){
+    if(FieldCell &fieldCellInNewCoord = get(newCoord); fieldCellInNewCoord.fieldCellType == FieldCell::FieldCellType::empty){
+        FieldCoord oldCoord = fieldCell.getCoord();
+        fieldCell.setCoord(newCoord);
+        fieldCellInNewCoord.setCoord(oldCoord);
+        field[oldCoord.x][oldCoord.y] = &fieldCellInNewCoord;
+        field[newCoord.x][newCoord.y] = &fieldCell;
+    }
+    return fieldCell;
 }

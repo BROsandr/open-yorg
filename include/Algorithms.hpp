@@ -17,6 +17,8 @@ namespace Algorithms {
     FieldCoord vector2fToFieldCoord(const sf::Vector2f &floatFieldCoord);
     sf::Vector2f fieldCoordToVector2f(const FieldCoord &fieldCoord);
     sf::Vector2f fieldCoordToVector2fCentered(const FieldCoord &fieldCoord);
+    
+    bool inFieldBounds(sf::Vector2f floatCoord);
 
     int doubleRadiusToInt(double damageRadius);
     double intRadiusToDouble(int damageRadius);

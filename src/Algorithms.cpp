@@ -75,3 +75,8 @@ double Algorithms::calculateEuclideanDistance( const sf::Vector2f &from, const s
 double Algorithms::radiansToDegrees( double radians){
     return radians * (180.0/M_PI);
 }
+
+bool Algorithms::inFieldBounds(sf::Vector2f floatCoord){
+    FieldCoord fieldCell = Algorithms::vector2fToFieldCoord(floatCoord);
+    return  (fieldCell.x < FIELD_LENGTH && floatCoord.x >= 0) && (fieldCell.y < FIELD_WIDTH && floatCoord.y >= 0);
+}

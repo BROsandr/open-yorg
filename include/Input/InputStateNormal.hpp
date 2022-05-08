@@ -12,6 +12,7 @@ class InputStateNormal:public InputState{
 public:
 	InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_);
     InputState* processKeys(const sf::Event::KeyEvent &key) override;
+    void processMouseMove(const sf::Event::MouseMoveEvent &mouseMove) override;
 
 private:
 

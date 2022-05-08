@@ -17,6 +17,7 @@ class InputState{
 public:
 	InputState(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_);
     virtual InputState* processKeys(const sf::Event::KeyEvent &key) = 0;
+    virtual void processMouseMove(const sf::Event::MouseMoveEvent &mouseMove) = 0;
 protected:
     Field &field;
     Interface &interface;

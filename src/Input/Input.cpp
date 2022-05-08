@@ -3,6 +3,7 @@
 #include "Game.hpp"
 #include <thread>
 #include "Algorithms.hpp"
+#include "SFML/Window/Event.hpp"
 
 Input::Input(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_) : interface(interface), state(new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}){}
 
@@ -22,6 +23,8 @@ void Input::process(const sf::Event &event){
         windowSizeView.zoom(zoomFactor);
         Game::window->setView(windowSizeView);
     }
+    if(event.type == sf::Event::MouseMoved)
+        state->processMouseMove(event.mouseMove);
     if (event.type == sf::Event::EventType::MouseWheelScrolled)
         processMouseWheelScroll(event.mouseWheelScroll);
 
@@ -60,9 +63,12 @@ void Input::processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton){
 void Input::processMouseLeftClick(const sf::Vector2i &clickPosition){
     sf::Vector2f floatCoord = Game::window->mapPixelToCoords(clickPosition);
     FieldCoord fieldCell = Algorithms::vector2fToFieldCoord(floatCoord);
+    if(floatCoord.x < 0 || floatCoord.y < 0){
+        fieldCell.x -= floatCoord.x < 0? 1: 0;
+        fieldCell.y -= floatCoord.y < 0? 1: 0;
+    }
     std::cerr << std::endl << fieldCell.x << ' ' << fieldCell.y << ' ';
-
-    if( (fieldCell.x < FIELD_LENGTH && floatCoord.x >= 0) && (fieldCell.y < FIELD_WIDTH && floatCoord.y >= 0) )
+    if(Algorithms::inFieldBounds(floatCoord))
         interface.selectCell(fieldCell); 
     else
         std::cerr << "out of field bounds" << std::endl;

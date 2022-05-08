@@ -55,7 +55,7 @@ InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
             std::tie(fieldCell, buildingCost) = build(key);
         }
 		if(fieldCell){
-			return new InputStateFutureRoad{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, buildingCost};
+			return new InputStateFutureRoad{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, buildingCost, fieldCell};
         }
         else 
             return nullptr;
@@ -138,4 +138,6 @@ InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     }
     
     return nullptr;
+}
+void InputStateNormal::processMouseMove(const sf::Event::MouseMoveEvent &mouseMove){
 }

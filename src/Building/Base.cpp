@@ -7,7 +7,7 @@
 #include "Game.hpp"
 #include "ValuesAndTypes.hpp"
 
-Base::Base(Field &field, const FieldCoord &fieldCoord): CanStore{fieldCoord, 3, 0}{
+Base::Base(Field &field, const FieldCoord &fieldCoord): field(field), CanStore{fieldCoord, 3, 0}{
     compatibleResource = ResourceType::crystal;
     text.setString("B");
     renderTexture.draw(text);
@@ -15,7 +15,6 @@ Base::Base(Field &field, const FieldCoord &fieldCoord): CanStore{fieldCoord, 3, 
         printf("\nbasePos = %d %d\n", field.basePosition.x, field.basePosition.y);
         assert(0 && "Base has yet been built");
     }
-    field.basePosition = coord;
 }
 
 void Base::draw(){
@@ -26,4 +25,9 @@ void Base::draw(){
 
 void Base::update(){
     CanStore::update();
+    field.basePosition = coord;
+}
+
+Base::~Base(){
+    field.basePosition = NONE_FIELD_CELL;
 }
