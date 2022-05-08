@@ -14,7 +14,7 @@ public:
     void update();
     void draw();
     void selectCell(const FieldCoord &selection);
-    sf::View windowSizeView{};
+    sf::View windowSizeView;
 
 private:
     Field &field;
