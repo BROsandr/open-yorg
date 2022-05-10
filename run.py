@@ -11,4 +11,4 @@ if ret != 0:
 #     for file in libs: shutil.copy(file, './build/')
 if not os.path.exists(os.path.abspath('./build/resources')):
     shutil.copytree('./resources/', './build/resources/')
-os.system('build\open-yorg.exe')
+os.system('./build/open-yorg')
