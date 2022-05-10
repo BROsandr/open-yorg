@@ -11,7 +11,7 @@ public:
 	Button(Layout &layout);
 	void draw() override ;
 	void update();
-	sf::Vector2f getCenter()const;
+	sf::Vector2f getCenter()const override;
 	
 private:
 	Layout &layout;

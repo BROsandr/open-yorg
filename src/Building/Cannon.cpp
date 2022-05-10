@@ -38,7 +38,7 @@ void Cannon::draw() {
 void Cannon::shootAim() {
     CanShoot::shootAim();
     storage--;
-    bullets.append(new CannonBall{ getCenter(), enemies.findNearest(getCoord(), getDamageRadius<double>()).getCenter(), damage, getDamageRadius<double>(), damageCircles, enemies });
+    bullets.append(new CannonBall{ getCenter(), enemies.findNearest(getCoord()).getCenter(), damage, getDamageRadius<double>(), damageCircles, enemies });
 }
 
 sf::Vector2f Cannon::getCenter() const {

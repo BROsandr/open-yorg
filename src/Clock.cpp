@@ -7,8 +7,8 @@ void Clock::tick(){
 }
 
 bool Clock::needToSwitch(){
-    if(timeOfDay == TimeOfDay::day && getElapsedTime().asSeconds() > DAY_DURATION || 
-       timeOfDay == TimeOfDay::night && getElapsedTime().asSeconds() > NIGHT_DURATION){
+    if((timeOfDay == TimeOfDay::day && getElapsedTime().asSeconds() > DAY_DURATION) || 
+       (timeOfDay == TimeOfDay::night && getElapsedTime().asSeconds() > NIGHT_DURATION)){
             return true;
     }
     

@@ -28,7 +28,7 @@ void Enemies::draw() {
         el->draw();
 }
 
-Enemy &Enemies::findNearest(FieldCoord fieldCoord, double searchRadius) {
+Enemy &Enemies::findNearest(FieldCoord fieldCoord) {
 
     return **std::min_element(enemies.begin(), enemies.end(), [fieldCoord](const Enemy *lhs, const Enemy *rhs) {
         double distanceLhs = Algorithms::calculateEuclideanDistance(lhs->getCenter(), Algorithms::fieldCoordToVector2fCentered(fieldCoord));
