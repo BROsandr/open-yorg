@@ -18,5 +18,5 @@ protected:
 	std::list<Button> buttons;
 	sf::RenderTexture renderTexture;
 private:
-	sf::Vector2f nextDrawPos{ NULL, NULL};
+	sf::Vector2f nextDrawPos{ (float)NULL, (float)NULL};
 };
