@@ -4,7 +4,7 @@
 
 #include "Input/Input.hpp"
 #include "GameElements.hpp"
-#include "Interface.hpp"
+#include "Interface/Interface.hpp"
 #include "Clock.hpp"
 
 class Game{

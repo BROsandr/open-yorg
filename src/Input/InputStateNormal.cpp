@@ -36,7 +36,7 @@ InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
 
     if (!isValidBuildingPosition(position)){
         std::cout << "Invalid building postion" << std::endl;
-        return;
+        return nullptr;
     }
     if (interface.selectedCell != NONE_FIELD_CELL){
 		FieldCell *fieldCell = nullptr;

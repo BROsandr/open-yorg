@@ -80,3 +80,7 @@ bool Algorithms::inFieldBounds(sf::Vector2f floatCoord){
     FieldCoord fieldCell = Algorithms::vector2fToFieldCoord(floatCoord);
     return  (fieldCell.x < FIELD_LENGTH && floatCoord.x >= 0) && (fieldCell.y < FIELD_WIDTH && floatCoord.y >= 0);
 }
+
+sf::Vector2f Algorithms::getFieldSize(){
+    return {FIELD_LENGTH * CELL_LENGTH, FIELD_WIDTH * CELL_WIDTH};
+}

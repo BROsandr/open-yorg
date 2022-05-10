@@ -58,7 +58,7 @@ void Road::update(){
 
 bool Road::mineHasResource(const FieldCoord &source, ResourceType type){
     if(!nodeFilter[nodeField[source.x][source.y]])
-        return;
+        return false;
     for(lemon::FilterNodes<lemon::ListDigraph>::ArcIt arc(subGraphField); arc != lemon::INVALID; ++arc){
 		if(FieldCell &fieldCell = field.get(coordMap[subGraphField.source(arc)]); fieldCell.fieldCellType == FieldCell::FieldCellType::resource && static_cast<Resource&>(fieldCell).resourceType == type && Algorithms::belongsToCircle(fieldCell.getCoord(), source, 2))
             return true;
@@ -139,7 +139,7 @@ std::pair<FieldCoord, bool> Road::generatePath(const FieldCoord &source_, Resour
     }
     lemon::ListDigraph::Node source(nodeField[source_.x][source_.y]);
     if(!nodeFilter[source])
-        return;
+        return std::make_pair(NONE_FIELD_CELL, false);
 
     lemon::FilterNodes<lemon::ListDigraph>::ArcMap<int> lengthMap(subGraphField);
     for (lemon::ListDigraph::ArcIt it(graphField); it != lemon::INVALID; ++it)

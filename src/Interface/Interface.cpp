@@ -1,4 +1,4 @@
-#include "Interface.hpp"
+#include "Interface/Interface.hpp"
 #include "Field/Field.hpp"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -14,13 +14,15 @@ Interface::Interface(Field &field) : field{ field } {
 
 void Interface::update(){
     crystalsText.setString(std::to_string(field.getCrystals()));
+    layouts.update();
 }
 
 void Interface::draw(){
-    crystalsText.setPosition({Game::window->getSize().x / 2.0, 50.0});
+    crystalsText.setPosition({Game::window->getSize().x / 2.0f, 50.0f});
     sf::View savedView { Game::window->getView()};
     Game::window->setView(windowSizeView);
     Game::window->draw(crystalsText);
+    layouts.draw();
     Game::window->setView(savedView);
 }
 

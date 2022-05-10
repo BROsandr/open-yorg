@@ -1,8 +1,11 @@
 #pragma once
 
+#include "Interface/Layout.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "SFML/Graphics/View.hpp"
 #include "ValuesAndTypes.hpp"
+#include "Interface/Layouts.hpp"
+#include <list>
 
 class Field;
 
@@ -19,4 +22,5 @@ public:
 private:
     Field &field;
     sf::Text crystalsText;
+    Layouts layouts;
 };

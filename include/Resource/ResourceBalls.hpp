@@ -9,7 +9,6 @@ class ResourceBalls{
 public:
     void tick();
     void append(ResourceBall *resourceBall);
-    void update();
     
 private:
     std::list<ResourceBall*> resourceBalls;

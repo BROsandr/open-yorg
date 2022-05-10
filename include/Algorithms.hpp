@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/System/Vector2.hpp"
 #include "ValuesAndTypes.hpp"
 
 namespace Algorithms {
@@ -27,4 +28,6 @@ namespace Algorithms {
     bool belongsToCircle(FieldCoord point, FieldCoord center, int radius);
 
     double radiansToDegrees( double radians);
+    
+    sf::Vector2f getFieldSize();
 }

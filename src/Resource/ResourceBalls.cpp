@@ -1,12 +1,7 @@
 #include "Resource/ResourceBalls.hpp"
 #include "Resource/ResourceBall.hpp"
 
-// void ResourceBalls::tick(){
-//     update();
-//     // draw()
-// }
-
-void ResourceBalls::update(){
+void ResourceBalls::tick(){
     for (auto &el : resourceBalls) {
         if (el->deleted) {
             delete el;
