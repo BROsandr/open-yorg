@@ -24,7 +24,6 @@ private:
 	// state pattern
     InputState *state = nullptr;
     Interface &interface;
-    double zoomFactor = NONE;
     const sf::Vector2f left {-1, 0};
     const sf::Vector2f right{1, 0};
     const sf::Vector2f up{0, -1};

@@ -19,9 +19,8 @@ void Input::process(const sf::Event &event){
         // update the view to the new size of the window
         sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
         sf::View windowSizeView{ visibleArea };
-        interface.windowSizeView = windowSizeView;
-        windowSizeView.zoom(zoomFactor);
         Game::window->setView(windowSizeView);
+        interface.windowSizeView = Game::window->getView();
     }
     if(event.type == sf::Event::MouseMoved)
         state->processMouseMove();
@@ -116,8 +115,8 @@ void Input::processViewMove(const sf::Keyboard::Key &key){
     
 
 void Input::zoomView(const double delta){
-    zoomFactor = 1 - delta * ZOOM_SPEED;
+    double zoom = 1 - delta * ZOOM_SPEED;
     sf::View view = Game::window->getView();
-    view.zoom(zoomFactor);
+    view.zoom(zoom);
     Game::window->setView(view);
 }
