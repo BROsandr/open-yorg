@@ -4,7 +4,7 @@
 #include "Resource/ResourceBalls.hpp"
 #include "Resource/ResourceBall.hpp"
 
-Mine::Mine(Field &field, const FieldCoord &fieldCoord, double miningRate_, ResourceBalls &resourceBalls_, Road& road_) : resourceBalls{ resourceBalls_ },Building{ fieldCoord, 2, 0 }, field{field}, miningRate{ miningRate_ }, road{ road_ } {
+Mine::Mine(Field &field, const FieldCoord &fieldCoord, double miningRate_, ResourceBalls &resourceBalls_, Road& road_) : Building{ fieldCoord, 2, 0 },miningRate{ miningRate_ }, resourceBalls{ resourceBalls_ }, road{ road_ }, field{field} {
     buildingType = BuildingType::mine;
 }
 void Mine::update(){

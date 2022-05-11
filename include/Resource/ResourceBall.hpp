@@ -37,7 +37,6 @@ private:
     FieldCoord nextNode = NONE_FIELD_CELL;
     FieldCoord destinationNode = NONE_FIELD_CELL;
     FieldCoord currentNode = NONE_FIELD_CELL;
-    Azimuth movementAzimuth = NONE;
     Field &field;
     bool fading = false;
     sf::Clock *fadingClock = nullptr;

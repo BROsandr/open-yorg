@@ -19,7 +19,6 @@ public:
 
 private:
     Enemies &enemies;
-    Enemy *aim = nullptr;
     Bullets &bullets;
     DamageCircles &damageCircles;
 };

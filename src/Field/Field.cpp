@@ -7,7 +7,7 @@
 #include "Field/FieldCell.hpp"
 #include "ValuesAndTypes.hpp"
 
-Field::Field() : pathSearchField{*this}, road(*this) {
+Field::Field() : road(*this), pathSearchField{*this} {
     srand(time(0));
 
     field.resize(FIELD_LENGTH);

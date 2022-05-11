@@ -12,6 +12,4 @@ public:
     
 private:
     std::list<ResourceBall*> resourceBalls;
-
-    bool isResourceNearby(const FieldCell &fieldCell);
 };

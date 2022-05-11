@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Field/PathSearchField.hpp"
 #include "Algorithms.hpp"
 #include "Field/Field.hpp"

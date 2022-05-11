@@ -11,7 +11,7 @@ void Game::tick(){
     // clock.tick()
 }
 
-Game::Game(sf::RenderWindow *const window) : input{ gameElements.field, 
+Game::Game(sf::RenderWindow *const window_) : input{ gameElements.field, 
                                                     interface, 
                                                     gameElements.field.pathSearchField, 
                                                     gameElements.enemies,
@@ -21,6 +21,6 @@ Game::Game(sf::RenderWindow *const window) : input{ gameElements.field,
                                                     gameElements.field.road
                                                   },
                                              interface { gameElements.field } {
-    this->window = window;
+    this->window = window_;
     font.loadFromFile("resources/CascadiaCode.ttf");
 }

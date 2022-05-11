@@ -5,13 +5,13 @@
 #include "Algorithms.hpp"
 #include "SFML/Window/Event.hpp"
 
-Input::Input(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_) : interface(interface), state(new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}){}
+Input::Input(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_) : state(new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_}), interface(interface){}
 
 void Input::process(const sf::Event &event){
     if (event.type == sf::Event::Closed)
         Game::window->close();
     if(event.type == sf::Event::EventType::MouseButtonPressed)
-        if(event.key.code == sf::Mouse::Middle){
+        if(event.mouseButton.button == sf::Mouse::Middle){
             std::thread t{&Input::processMiddleButtonPressed, this};
             t.detach();
         }
@@ -24,7 +24,7 @@ void Input::process(const sf::Event &event){
         Game::window->setView(windowSizeView);
     }
     if(event.type == sf::Event::MouseMoved)
-        state->processMouseMove(event.mouseMove);
+        state->processMouseMove();
     if (event.type == sf::Event::EventType::MouseWheelScrolled)
         processMouseWheelScroll(event.mouseWheelScroll);
 
@@ -109,6 +109,8 @@ void Input::processViewMove(const sf::Keyboard::Key &key){
     case sf::Keyboard::Key::Up:
         moveView(up);
         break;
+    default:
+        std::cout << "Unknown key\n";
     }
 }
     

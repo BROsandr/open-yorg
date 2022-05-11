@@ -16,7 +16,7 @@ public:
     void draw();
     std::pair<FieldCoord, bool> generatePath(const FieldCoord &source, ResourceType type);
     bool mineHasResource(const FieldCoord &source, ResourceType type);
-    void showFutureRoad(FieldCell *fieldCell);
+    void showFutureRoad();
     void showRealRoad(bool revert = true);
     bool isFutureCell(FieldCoord &fieldCoord);
 

@@ -11,7 +11,7 @@
 #include "Field/FieldCell.hpp"
 #include "Building/Building.hpp"
 
-ResourceBall::ResourceBall(Field &field_, Road &road, const FieldCoord &source, ResourceType type_) : field{field_}, road{road}, source { source }, destination{ source }, destinationNode{ source }, type{type_}{
+ResourceBall::ResourceBall(Field &field_, Road &road, const FieldCoord &source, ResourceType type_) : type{type_}, road{road}, source { source }, destination{ source }, destinationNode{ source }, field{field_}{
     findDestination();
     speed = 0.01 * CELL_LENGTH ;
     setRadius(CELL_LENGTH / 4.);

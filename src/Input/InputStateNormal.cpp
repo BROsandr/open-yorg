@@ -57,9 +57,8 @@ InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
 		if(fieldCell){
 			return new InputStateFutureRoad{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road, buildingCost, fieldCell};
         }
-        else 
-            return nullptr;
     }
+    return nullptr;
 }
 
 
@@ -83,6 +82,9 @@ std::pair<FieldCell*, int> InputStateNormal::build(const sf::Keyboard::Key &key)
         break;
     case sf::Keyboard::W:
         fieldCell = field.set(new Wall{ interface.selectedCell });
+        break;
+    default:
+        std::cout << "Unknown key\n";
         break;
     }
     if(fieldCell){
@@ -139,5 +141,5 @@ InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     
     return nullptr;
 }
-void InputStateNormal::processMouseMove(const sf::Event::MouseMoveEvent &mouseMove){
+void InputStateNormal::processMouseMove(){
 }

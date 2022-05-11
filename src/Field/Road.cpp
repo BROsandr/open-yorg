@@ -44,8 +44,9 @@ Road::Road(Field &field): Graph{field}{
 }
 
 void Road::update(){
-    for(lemon::FilterNodes<lemon::ListDigraph>::ArcIt arc(futureSubGraphField); arc != lemon::INVALID; ++arc)
+    for(lemon::FilterNodes<lemon::ListDigraph>::ArcIt arc(futureSubGraphField); arc != lemon::INVALID; ++arc){
         futureSubGraphField.erase(arc);
+    }
 	for(lemon::FilterNodes<lemon::ListDigraph>::NodeIt node(futureSubGraphField); node != lemon::INVALID; ++node)
         nodeFilterFuture[node] = false;
     for(int col = 0; col < FIELD_LENGTH; col++)
@@ -113,7 +114,7 @@ bool Road::canConnect(FieldCoord leftCoord, FieldCoord rightCoord){
         return false;
     if(leftFieldCell.fieldCellType != FieldCell::FieldCellType::resource && rightFieldCell.fieldCellType != FieldCell::FieldCellType::resource)
         return true;
-    if(leftFieldCell.fieldCellType == FieldCell::FieldCellType::resource)
+    if(leftFieldCell.fieldCellType == FieldCell::FieldCellType::resource){
         if(Building &building = static_cast<Building&>( rightFieldCell ); building.buildingType == Building::BuildingType::mine)
             if(Mine &mine = static_cast<Mine&>(building); mine.compatibleResource == static_cast<Resource&>(leftFieldCell).resourceType)
                 return true;
@@ -121,7 +122,8 @@ bool Road::canConnect(FieldCoord leftCoord, FieldCoord rightCoord){
                 return false;
         else 
             return false;
-    if(rightFieldCell.fieldCellType == FieldCell::FieldCellType::resource)
+    }
+    if(rightFieldCell.fieldCellType == FieldCell::FieldCellType::resource){
         if(Building &building = static_cast<Building&>( leftFieldCell ); building.buildingType == Building::BuildingType::mine)
             if(Mine &mine = static_cast<Mine&>(building); mine.compatibleResource == static_cast<Resource&>(rightFieldCell).resourceType)
                 return true;
@@ -129,6 +131,8 @@ bool Road::canConnect(FieldCoord leftCoord, FieldCoord rightCoord){
                 return false;
         else 
             return false;
+    }
+    return false;
 }
 
 
@@ -176,7 +180,7 @@ std::pair<FieldCoord, bool> Road::generatePath(const FieldCoord &source_, Resour
     }
 }
 
-void Road::showFutureRoad(FieldCell *fieldCell){
+void Road::showFutureRoad(){
     // std::cout << "printing future\n";
     // for (lemon::FilterNodes<lemon::ListDigraph>::ArcIt it(subGraphField); it != lemon::INVALID; ++it)
     //     std::cout << coordMap[subGraphField.source(it)].x << ' '<< coordMap[subGraphField.source(it)].y << std::endl;

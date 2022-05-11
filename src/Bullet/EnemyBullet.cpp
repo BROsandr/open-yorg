@@ -3,7 +3,7 @@
 #include "DamageCircle/EnemyDamageCircle.hpp"
 #include "DamageCircle/DamageCircles.hpp"
 
-EnemyBullet::EnemyBullet(sf::Vector2f spawnPosition, FieldCoord aim, double damage, Field &field, int damageRadius, DamageCircles &damgeCircles_) : damageCircles{ damgeCircles_ }, Bullet { spawnPosition, aim, damage, damageRadius }, field{ field } {
+EnemyBullet::EnemyBullet(sf::Vector2f spawnPosition, FieldCoord aim, double damage, Field &field, int damageRadius, DamageCircles &damgeCircles_) : Bullet { spawnPosition, aim, damage, damageRadius }, field{ field }, damageCircles{ damgeCircles_ } {
 	speed = 0.01 * CELL_LENGTH;
 }
 

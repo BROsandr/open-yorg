@@ -4,7 +4,7 @@
 #include "DamageCircle/DamageCircles.hpp"
 #include "SFML/System/Vector2.hpp"
 
-CannonBall::CannonBall(sf::Vector2f spawnPosition, sf::Vector2f aim_, double damage, double damageRadius, DamageCircles &damgeCircles_, Enemies &enemies) : damageCircles{ damgeCircles_ }, Bullet{ spawnPosition, aim_, damage, damageRadius }, enemies{ enemies } {
+CannonBall::CannonBall(sf::Vector2f spawnPosition, sf::Vector2f aim_, double damage, double damageRadius, DamageCircles &damgeCircles_, Enemies &enemies) : Bullet{ spawnPosition, aim_, damage, damageRadius }, damageCircles{ damgeCircles_ }, enemies{ enemies } {
     speed = 0.01 * CELL_LENGTH;
 }
 

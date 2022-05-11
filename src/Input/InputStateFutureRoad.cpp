@@ -10,7 +10,7 @@
 #include "SFML/Window/Mouse.hpp"
 #include "ValuesAndTypes.hpp"
 
-InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost, FieldCell *fieldCell): fieldCell(fieldCell), InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost){}
+InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost, FieldCell *fieldCell): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost), fieldCell(fieldCell){}
 
 InputState* InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
     switch(key.code){
@@ -21,11 +21,13 @@ InputState* InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
     case sf::Keyboard::Key::Escape:
         road.showRealRoad(true);
         break;
+    default:
+        std::cout << "Unknown key\n";
 	}
     return new InputStateNormal{field, interface, pathSearchField, enemies, bullets, damageCircles, resourceBalls, road};
 }
 
-void InputStateFutureRoad::processMouseMove(const sf::Event::MouseMoveEvent &mouseMove){
+void InputStateFutureRoad::processMouseMove(){
     sf::Vector2f mousePos { Game::window->mapPixelToCoords(sf::Mouse::getPosition(*Game::window))};
     FieldCoord fieldCoord{ Algorithms::vector2fToFieldCoord(mousePos)};
     if(fieldCell->getCoord() != fieldCoord && Algorithms::inFieldBounds(mousePos))
