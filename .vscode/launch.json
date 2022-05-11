@@ -19,7 +19,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/build/open-yorg.exe",
+            "program": "${workspaceFolder}/build/open-yorg",
             "args": [],
             "cwd": "${workspaceFolder}"
         }
