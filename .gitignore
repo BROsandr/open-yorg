@@ -6,3 +6,4 @@ Debug/
 compile_commands.json
 build/
 .cache/
+.ccls-cache/
