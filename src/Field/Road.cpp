@@ -156,10 +156,14 @@ std::pair<FieldCoord, bool> Road::generatePath(const FieldCoord &source_, Resour
         lemon::ListDigraph::Node nextNode = dijkstra.nextNode();
         if(nextNode == lemon::INVALID)
             return std::make_pair(NONE_FIELD_CELL, false);
-        if(Building &building = static_cast<Building&>(field.get(coordMap[nextNode])); building.compatibleResource == type && building.buildingType != Building::BuildingType::mine)
-            reachedDestination = true;
-        else
-            dijkstra.processNextNode();
+        if(FieldCell &fieldCell = field.get(coordMap[nextNode]); fieldCell.fieldCellType == FieldCell::FieldCellType::building){
+        //here dynamic_cast failes
+            if(Building &building = static_cast<Building&>(field.get(coordMap[nextNode])); building.compatibleResource == type && building.buildingType != Building::BuildingType::mine){
+                reachedDestination = true;
+                break;
+            }
+        }
+        dijkstra.processNextNode();
     }
 
     lemon::ListDigraph::Node destination = dijkstra.nextNode();
