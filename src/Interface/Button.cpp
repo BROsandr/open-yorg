@@ -14,9 +14,9 @@ Button::Button(Layout &layout): layout(layout){
 }
 
 void Button::draw(){
+    Graphical::draw();
     renderTexture.display();
     layout.getTexture().draw(*this);
-    Graphical::draw();
 }
 
 void Button::update(){

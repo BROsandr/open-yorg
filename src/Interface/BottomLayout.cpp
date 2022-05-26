@@ -13,6 +13,6 @@ BottomLayout::BottomLayout(){
 void BottomLayout::tick(){
 	Layout::tick();
 	sf::Sprite sprite{renderTexture.getTexture()};
-	sprite.setPosition(0, Algorithms::getFieldSize().y - Layout::buttonSize.y);
+	sprite.setPosition(100, Game::window->getSize().y - Layout::buttonSize.y - 50);
     Game::window->draw(sprite);
 }
