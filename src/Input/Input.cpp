@@ -37,9 +37,9 @@ void Input::processMouseMove(){
 void Input::processMiddleButtonPressed(){
     if(middleButtonPrevPos != sf::Vector2i{NONE, NONE}){
         sf::Vector2i tempPosition = sf::Mouse::getPosition(*Game::window);
-        sf::Vector2i delta = tempPosition - middleButtonPrevPos;
+        sf::Vector2i delta = -(tempPosition - middleButtonPrevPos);
         if(delta.x || delta.y){
-            moveView(static_cast<sf::Vector2f>(delta) / 50.0f);
+            moveView(static_cast<sf::Vector2f>(delta) / 80.0f);
             middleButtonPrevPos = tempPosition;
         }
     }
