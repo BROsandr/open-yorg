@@ -31,6 +31,7 @@ private:
     sf::Vector2i middleButtonPrevPos{NONE, NONE};
 
     void processMouseWheelScroll(const sf::Event::MouseWheelScrollEvent &mouseWheelScroll);
+    void processMouseMove();
     void zoomView(const double delta);
     void processViewMove(const sf::Keyboard::Key &key);
     void processKeys(const sf::Event::KeyEvent &key);
