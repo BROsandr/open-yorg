@@ -20,16 +20,10 @@ ResourceBall::ResourceBall(Field &field_, Road &road, const FieldCoord &source, 
     setOutlineThickness(CELL_OUTLINE_THICKNESS);
     setTexture(&renderTexture.getTexture());
     nextMoveFieldCoord = Algorithms::vector2fToFieldCoord(getCenter());
-    renderTexture.draw(text);
-    sf::Image image;
-    sf::Color color;
     if(type == ResourceType::crystal)
-        color = sf::Color::Magenta;
+        setColor(sf::Color::Magenta);
     else if(type == ResourceType::iron)
-        color = sf::Color::Yellow;
-    image.create(CELL_LENGTH, CELL_WIDTH, color);
-    backgroundTexture.loadFromImage(image);
-    renderTexture.draw(sf::Sprite(backgroundTexture));
+        setColor(sf::Color::Yellow);
     if(!road.mineHasResource(source, type))
         fade();
 }
@@ -57,7 +51,6 @@ void ResourceBall::update(){
 
 void ResourceBall::draw(){
     Graphical::draw();
-    renderTexture.display();
     Game::window->draw(*this);
 }
 

@@ -21,7 +21,6 @@ void DamageCircle::init() {
 
 void DamageCircle::draw() {
     Graphical::draw();
-    renderTexture.display();
     Game::window->draw(*this);
 }
 

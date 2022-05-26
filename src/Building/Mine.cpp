@@ -15,7 +15,6 @@ void Mine::update(){
 
 void Mine::draw() {
     Building::draw();
-    renderTexture.display();
     Game::window->draw(*this);
 }
 

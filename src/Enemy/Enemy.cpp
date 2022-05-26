@@ -16,12 +16,10 @@ Enemy::Enemy(const FieldCoord &spawnPosition, PathSearchField &pathSearchField, 
     nextMoveFieldCoord = Algorithms::vector2fToFieldCoord(getCenter());
 
     text.setString("E");
-    renderTexture.draw(text);
 }
 
 void Enemy::draw(){
     Graphical::draw();
-    renderTexture.display();
     Game::window->draw(*this);
 }
 

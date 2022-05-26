@@ -8,7 +8,6 @@
 Cannon::Cannon(FieldCoord &fieldCoord_, Enemies &enemies_, Bullets &bullets, DamageCircles &damageCircles) : CanStore{ fieldCoord_, 3, 1 }, CanShoot{ NONE_VECTOR2F, NONE, NONE }, enemies{ enemies_ }, bullets{ bullets }, damageCircles{damageCircles} {
     setDamageRadius(3);
     text.setString("CA");
-    renderTexture.draw(text);
 	fireRate = 2;
     damage = 4;
     setAttackRadius(10);
@@ -30,9 +29,8 @@ void Cannon::update() {
 }
 
 void Cannon::draw() {
-    renderTexture.display();
-    Game::window->draw(*this);
     CanStore::draw();
+    Game::window->draw(*this);
 }
 
 void Cannon::shootAim() {

@@ -3,19 +3,17 @@
 #include "Game.hpp"
 
 Button::Button(Layout &layout): layout(layout){
-    text.setString("B");
-    renderTexture.draw(text);
     setPosition(layout.getNextDrawPos());
     setSize({CELL_LENGTH, CELL_WIDTH});
     setOutlineColor(UNSELECTED);
     setOutlineThickness(CELL_OUTLINE_THICKNESS);
 
     setTexture(&renderTexture.getTexture());
+    text.setString("B");
 }
 
 void Button::draw(){
     Graphical::draw();
-    renderTexture.display();
     layout.getTexture().draw(*this);
 }
 
