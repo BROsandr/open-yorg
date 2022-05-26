@@ -14,7 +14,6 @@ class Field;
 
 class ResourceBall: public CanMove, public Graphical, public sf::CircleShape{
 public:
-    bool deleted = false;
     ResourceType type = ResourceType::none;
 
     ResourceBall(Field &field, Road &road, const FieldCoord &source, ResourceType type);
