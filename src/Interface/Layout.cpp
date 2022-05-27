@@ -2,12 +2,14 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "Game.hpp"
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
 Layout::Layout(){
 }
 
 void Layout::tick(){
+    renderTexture.clear(sf::Color::Magenta);
     for (auto &el : buttons) {
         el.update();
         el.draw();

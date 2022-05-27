@@ -9,5 +9,5 @@ public:
 	void tick() override;
 	sf::Vector2f getNextDrawPos() override;
 private:
-	sf::Vector2f nextDrawPos{ (float)NULL, (float)NULL};
+	sf::Vector2f nextDrawPos{ 5, 5};
 };

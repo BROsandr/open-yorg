@@ -15,7 +15,6 @@ Interface::Interface(Field &field) : field{ field } {
 
 void Interface::update(){
     crystalsText.setString(std::to_string(field.getCrystals()));
-    layouts.update();
 }
 
 void Interface::draw(){
@@ -23,7 +22,7 @@ void Interface::draw(){
     sf::View savedView { Game::window->getView()};
     Game::window->setView(windowSizeView);
     Game::window->draw(crystalsText);
-    layouts.draw();
+    layouts.update();
     Game::window->setView(savedView);
 }
 
