@@ -111,8 +111,8 @@ void InputStateNormal::upgrade(Building &building){
     building.upgrade();
 }
 
-InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
-    switch(key.code){
+InputState* InputStateNormal::processKeys(const sf::Keyboard::Key &key){
+    switch(key){
     case sf::Keyboard::Key::F1:
         if(FieldCell &fieldCell {field.get( interface.selectedCell)}; fieldCell.fieldCellType == FieldCell::FieldCellType::building)
             upgrade(static_cast<Building&>(fieldCell));
@@ -133,7 +133,7 @@ InputState* InputStateNormal::processKeys(const sf::Event::KeyEvent &key){
     case sf::Keyboard::I:
     case sf::Keyboard::O:
     case sf::Keyboard::W:
-        return place(key.code);
+        return place(key);
         break;
     default:
         std::cerr << std::endl << "detected unrecognized Key event" << std::endl;

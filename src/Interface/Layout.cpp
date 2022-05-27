@@ -2,6 +2,7 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "Game.hpp"
+#include <SFML/Window/Keyboard.hpp>
 
 Layout::Layout(){
 }
@@ -17,12 +18,17 @@ void Layout::tick(){
     renderTexture.display();
 }
 
-sf::Vector2f Layout::getNextDrawPos(){
-    sf::Vector2f drawPos = nextDrawPos;
-    nextDrawPos += buttonSize;
-    return drawPos;
-}
-
 sf::RenderTexture &Layout::getTexture(){
     return renderTexture;
+}
+
+std::string Layout::getButtonIfClicked(){
+    for(auto &el:buttons)
+        if(el.containsMouse())
+            return el.getButton();
+    return "";
+}
+
+sf::Vector2f Layout::getSelfPosition(){
+    return position;
 }

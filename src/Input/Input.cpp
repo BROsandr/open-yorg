@@ -1,6 +1,7 @@
 #include "Input/Input.hpp"
 #include "Input/InputStateNormal.hpp"
 #include "Game.hpp"
+#include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include "Algorithms.hpp"
 #include "SFML/Window/Event.hpp"
@@ -25,7 +26,7 @@ void Input::process(const sf::Event &event){
     if (event.type == sf::Event::EventType::MouseButtonReleased)
         processMouseClick(event.mouseButton);
     if (event.type == sf::Event::EventType::KeyPressed)
-        processKeys(event.key);
+        processKeys(event.key.code);
 }
 
 void Input::processMouseMove(){
@@ -61,6 +62,8 @@ void Input::processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton){
 }
 
 void Input::processMouseLeftClick(const sf::Vector2i &clickPosition){
+    if(std::string button { interface.getButtonIfClicked() }; button != "")
+        processKeys(stringToKey(button));
     sf::Vector2f floatCoord = Game::window->mapPixelToCoords(clickPosition);
     FieldCoord fieldCell = Algorithms::vector2fToFieldCoord(floatCoord);
     if(floatCoord.x < 0 || floatCoord.y < 0){
@@ -74,14 +77,23 @@ void Input::processMouseLeftClick(const sf::Vector2i &clickPosition){
         std::cerr << "out of field bounds" << std::endl;
 }
 
-void Input::processKeys(const sf::Event::KeyEvent &key){
-    switch(key.code){
+sf::Keyboard::Key Input::stringToKey(std::string &str){
+    if(str == "B")
+        return sf::Keyboard::Key::B;
+    if(str == "C")
+        return sf::Keyboard::Key::C;
+    else
+        throw "Unknown key";
+}
+
+void Input::processKeys(const sf::Keyboard::Key &key){
+    switch(key){
     //fall through
     case sf::Keyboard::Key::Left:
     case sf::Keyboard::Key::Right:
     case sf::Keyboard::Key::Down:
     case sf::Keyboard::Key::Up:
-        processViewMove(key.code);
+        processViewMove(key);
         break;
     default:
         if(InputState *state_ = state->processKeys(key); state_){

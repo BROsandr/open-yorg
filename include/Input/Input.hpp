@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "InputState.hpp"
 #include "ValuesAndTypes.hpp"
@@ -34,11 +35,12 @@ private:
     void processMouseMove();
     void zoomView(const double delta);
     void processViewMove(const sf::Keyboard::Key &key);
-    void processKeys(const sf::Event::KeyEvent &key);
+    void processKeys(const sf::Keyboard::Key &key);
     void processMouseClick(const sf::Event::MouseButtonEvent  &mouseButton);
     void processMouseLeftClick(const sf::Vector2i &clickPosition);
     void processMiddleButtonPressed();
     void moveView(const sf::Vector2f delta);
+    sf::Keyboard::Key stringToKey(std::string &str);
 
     friend class InputStateNormal;
     friend class InputStateFutureRoad;

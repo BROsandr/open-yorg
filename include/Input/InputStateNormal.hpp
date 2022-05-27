@@ -4,6 +4,7 @@
 #include "InputState.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "ValuesAndTypes.hpp"
+#include <SFML/Window/Keyboard.hpp>
 
 class Building;
 class FieldCell;
@@ -11,7 +12,7 @@ class FieldCell;
 class InputStateNormal:public InputState{
 public:
 	InputStateNormal(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_);
-    InputState* processKeys(const sf::Event::KeyEvent &key) override;
+    InputState* processKeys(const sf::Keyboard::Key &key) override;
     void processMouseMove() override;
 
 private:

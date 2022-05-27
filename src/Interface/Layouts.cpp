@@ -12,3 +12,10 @@ void Layouts::update(){
 }
 void Layouts::draw(){
 }
+
+std::string Layouts::getButtonIfClicked(){
+	for(auto &el: layouts)
+		if(std::string button { el->getButtonIfClicked() }; button != "")
+			return button;
+	return "";
+}

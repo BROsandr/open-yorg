@@ -5,6 +5,7 @@
 #include "ValuesAndTypes.hpp"
 #include "Field/FieldCell.hpp"
 #include "Game.hpp"
+#include <string>
 
 Interface::Interface(Field &field) : field{ field } {
 	crystalsText.setFont(Game::font);
@@ -31,4 +32,8 @@ void Interface::selectCell(const FieldCoord &selection){
         field.get(selectedCell).setOutlineColor(UNSELECTED);
     field.get(selection).setOutlineColor(SELECTED);
     selectedCell = selection;
+}
+
+std::string Interface::getButtonIfClicked(){
+    return layouts.getButtonIfClicked();
 }

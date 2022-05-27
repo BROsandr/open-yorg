@@ -5,7 +5,9 @@
 #include "SFML/Graphics/View.hpp"
 #include "ValuesAndTypes.hpp"
 #include "Interface/Layouts.hpp"
+#include <SFML/Window/Keyboard.hpp>
 #include <list>
+#include <string>
 
 class Field;
 
@@ -18,6 +20,7 @@ public:
     void draw();
     void selectCell(const FieldCoord &selection);
     sf::View windowSizeView;
+    std::string getButtonIfClicked();
 
 private:
     Field &field;

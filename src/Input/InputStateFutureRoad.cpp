@@ -9,11 +9,12 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Mouse.hpp"
 #include "ValuesAndTypes.hpp"
+#include <SFML/Window/Keyboard.hpp>
 
 InputStateFutureRoad::InputStateFutureRoad(Field &field, Interface &interface, PathSearchField &pathSearchField, Enemies &enemies, Bullets &bullets, DamageCircles &damageCircles_, ResourceBalls &resourceBalls_, Road &road_, int buildingCost, FieldCell *fieldCell): InputState(field, interface, pathSearchField, enemies, bullets, damageCircles_, resourceBalls_, road_), buildingCost(buildingCost), fieldCell(fieldCell){}
 
-InputState* InputStateFutureRoad::processKeys(const sf::Event::KeyEvent &key){
-    switch(key.code){
+InputState* InputStateFutureRoad::processKeys(const sf::Keyboard::Key &key){
+    switch(key){
     case sf::Keyboard::Key::Enter:
         road.showRealRoad(false);
         field.decreaseCrystals(buildingCost);
