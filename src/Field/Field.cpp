@@ -1,27 +1,46 @@
-#include <time.h>
+#include <numeric>
+#include <random>
 
 #include "Building/Building.hpp"
 #include "Can/CanStore.hpp"
 #include "Field/Field.hpp"
 #include "Field/EmptyFieldCell.hpp"
 #include "Field/FieldCell.hpp"
+#include "Resource/Crystal.hpp"
 #include "ValuesAndTypes.hpp"
+#include <Resource/Iron.hpp>
 
 Field::Field() : road(*this), pathSearchField{*this} {
-    srand(time(0));
-
     field.resize(FIELD_LENGTH);
+    std::vector<int> omega (static_cast<int>(ResourceType::n));
+    std::iota(omega.begin(), omega.end(), 0);
+    for(int n = 15; n; --n)
+        omega.push_back(static_cast<int>(ResourceType::n) - 1);
 
     for(auto col = field.begin(); col < field.end(); col++){
         col->resize(FIELD_WIDTH);
         for(auto row = col->begin(); row < col->end(); row++){
-            *row = new EmptyFieldCell({ int(col - field.begin()), int(row - col->begin()) });
-            // cellType = rand();
-            // if(cellType != FieldCellType::none)
-            //     placeNew(FieldCell(row, column), toResource(cellType))
-            // else{
-            //     placeNew(FieldCell(row, column), None())
-            // }
+            int resourceType = NONE;
+            std::sample(
+                omega.begin(),
+                omega.end(),
+                &resourceType,
+                1,
+                std::default_random_engine { std::random_device { }() }
+            );
+            switch (static_cast<ResourceType>(resourceType)) {
+            case ResourceType::crystal:
+                *row = new Crystal{{ int(col - field.begin()), int(row - col->begin()) }};
+                break;
+            case ResourceType::iron:
+                *row = new Iron{{ int(col - field.begin()), int(row - col->begin()) }};
+                break;
+            case ResourceType::none:
+                *row = new EmptyFieldCell{{ int(col - field.begin()), int(row - col->begin()) }};
+                break;
+            default:
+                throw "Unknown";
+            }
         }
     }
 }

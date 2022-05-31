@@ -11,11 +11,11 @@ using Azimuth = double;
 template<class GR>
 using dijkstra_t = lemon::Dijkstra<lemon::FilterNodes<GR>, typename GR::template ArcMap<int> >;
 enum class ResourceType{
-	wood,
 	crystal,
 	iron,
+	none,
 
-	none
+	n
 };
 
 #define NONE -1

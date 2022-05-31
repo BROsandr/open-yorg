@@ -21,6 +21,7 @@ Game::Game(sf::RenderWindow *const window_) : input{ gameElements.field,
                                                     gameElements.field.road
                                                   },
                                              interface { gameElements.field } {
+    srand(time(0));
     this->window = window_;
     font.loadFromFile("resources/CascadiaCode.ttf");
 }
