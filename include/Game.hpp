@@ -5,7 +5,7 @@
 #include "Input/Input.hpp"
 #include "GameElements.hpp"
 #include "Interface/Interface.hpp"
-#include "Clock.hpp"
+#include "GameClock.hpp"
 
 class Game{
 public:
@@ -13,7 +13,7 @@ public:
     Input input;
     static sf::RenderWindow *window;
     Interface interface;
-    Clock clock;
+    GameClock clock;
     static sf::Font font;
 
     Game(sf::RenderWindow *const renderWindow);

@@ -37,7 +37,5 @@ enum class ResourceType{
 #define CELL_WIDTH 20
 #define CELL_OUTLINE_THICKNESS -1
 
-#define DAY_DURATION NONE
-#define NIGHT_DURATION NONE
 
 #define DAMAGE_CIRCLE_LIFE_TIME 0.3

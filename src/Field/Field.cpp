@@ -20,6 +20,10 @@ Field::Field() : road(*this), pathSearchField{*this} {
     for(auto col = field.begin(); col < field.end(); col++){
         col->resize(FIELD_WIDTH);
         for(auto row = col->begin(); row < col->end(); row++){
+            if (col == field.begin() || col == field.end() - 1 || row == col->begin() || row == col->end() - 1){
+                *row = new EmptyFieldCell{{ int(col - field.begin()), int(row - col->begin()) }};
+                continue;
+            }
             int resourceType = NONE;
             std::sample(
                 omega.begin(),

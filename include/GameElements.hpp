@@ -8,6 +8,7 @@
 
 class GameElements{
 public:
+    GameElements();
     Field field;
     Enemies enemies;
     ResourceBalls resourceBalls;

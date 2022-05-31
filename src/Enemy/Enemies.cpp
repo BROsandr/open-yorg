@@ -2,8 +2,12 @@
 #include "Enemy/Enemy.hpp"
 #include "Algorithms.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "ValuesAndTypes.hpp"
+#include <random>
+#include <Field/Field.hpp>
+#include <Enemy/CasualEnemy.hpp>
 
-Enemies::Enemies() {
+Enemies::Enemies(Field &field) : field{field} {
 }
 
 Enemy *Enemies::append(Enemy *enemy) {
@@ -52,3 +56,15 @@ std::vector<Enemy *> Enemies::findAllInCircle(sf::Vector2f circleCenter, double 
 
     // return enemiesInCircle;
 }
+
+void Enemies::spawnInRandomPos(PathSearchField &pathSearchField, Bullets &bullets, DamageCircles &damageCircles){
+    int position { rand() % (FIELD_LENGTH * 4) };
+    if( position < 20 )
+        append( new CasualEnemy({position, 0}, *this, pathSearchField, bullets, field, damageCircles));
+    else if ( position < 40 )
+        append( new CasualEnemy({19, position}, *this, pathSearchField, bullets, field, damageCircles));
+    else if ( position < 60 )
+        append( new CasualEnemy({position, 19}, *this, pathSearchField, bullets, field, damageCircles));
+    else
+        append( new CasualEnemy({0, position}, *this, pathSearchField, bullets, field, damageCircles));
+} 
