@@ -20,6 +20,7 @@ public:
     void tick();
     TimeOfDay getTimeOfDay() const;
     GameClock(PathSearchField &pathSearchField, Bullets &bullets, DamageCircles &damageCircles, Enemies &enemies);
+    bool isTimeToSpawn();
 
 private:
     /* sf::Time time = sf::seconds(NONE); */

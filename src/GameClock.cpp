@@ -6,8 +6,12 @@ GameClock::GameClock(PathSearchField &pathSearchField, Bullets &bullets, DamageC
 
 void GameClock::tick(){
     if(needToSwitch()){
-        switchTime();
-        enemies.spawnInRandomPos(pathSearchField, bullets, damageCircles);
+        /* switchTime(); */
+        if( isTimeToSpawn()) { 
+            enemies.spawnInRandomPos(pathSearchField, bullets, damageCircles);
+            restart();
+            std::cout << "spawning" << std::endl;
+        }
     }
 }
 
@@ -27,4 +31,8 @@ void GameClock::switchTime(){
 
 GameClock::TimeOfDay GameClock::getTimeOfDay() const{
     return static_cast<TimeOfDay>(static_cast<int>(timeOfDay) & 1);
+}
+
+bool GameClock::isTimeToSpawn() {
+    return getElapsedTime().asSeconds() > 10;
 }

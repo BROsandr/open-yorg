@@ -49,6 +49,8 @@ std::pair<FieldCoord, bool>  PathSearchField::generatePath(const FieldCoord &sou
     if (source_ == NONE_FIELD_CELL) {
         return std::make_pair(NONE_FIELD_CELL, false);
     }
+    /* if(source_ == FieldCoord { -1, -1 } ) */
+    /*     throw "here"; */
     lemon::ListGraph::Node source(nodeField[source_.x][source_.y]);
     FieldCoord destinationCoord = field.basePosition;
     lemon::ListGraph::Node destination(nodeField[destinationCoord.x][destinationCoord.y]);
