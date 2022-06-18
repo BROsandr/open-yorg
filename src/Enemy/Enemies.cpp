@@ -61,11 +61,11 @@ void Enemies::spawnInRandomPos(PathSearchField &pathSearchField, Bullets &bullet
     int position { rand() % (FIELD_LENGTH * 4) };
     std::cout << "in spawnInRand" << std::endl;
     if( position < 20 )
-        new CasualEnemy({position, 0}, *this, pathSearchField, bullets, field, damageCircles);
+        append(new CasualEnemy({position, 0}, *this, pathSearchField, bullets, field, damageCircles));
     else if ( position < 40 )
-        new CasualEnemy({19, position - 20}, *this, pathSearchField, bullets, field, damageCircles);
+        append(new CasualEnemy({19, position - 20}, *this, pathSearchField, bullets, field, damageCircles));
     else if ( position < 60 )
         new CasualEnemy({position - 40, 19}, *this, pathSearchField, bullets, field, damageCircles);
     else
-        new CasualEnemy({0, position - 60}, *this, pathSearchField, bullets, field, damageCircles);
+        append(new CasualEnemy({0, position - 60}, *this, pathSearchField, bullets, field, damageCircles));
 } 

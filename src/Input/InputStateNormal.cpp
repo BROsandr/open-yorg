@@ -49,7 +49,7 @@ InputState* InputStateNormal::place(const sf::Keyboard::Key &key){
             fieldCell = field.set(new Iron{interface.selectedCell});
             break;
         case sf::Keyboard::E:
-            new CasualEnemy{ interface.selectedCell, enemies, pathSearchField, bullets, field, damageCircles};
+            enemies.append(new CasualEnemy{ interface.selectedCell, enemies, pathSearchField, bullets, field, damageCircles});
             break;
         default:
             std::tie(fieldCell, buildingCost) = build(key);
